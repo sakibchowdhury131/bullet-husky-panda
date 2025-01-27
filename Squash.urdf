@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<robot name="Squash">
+
+<material name="silver">
+  <color rgba="0.700 0.700 0.700 1.000"/>
+</material>
+
+<link name="squash">
+  <inertial>
+    <origin xyz="-0.00023896390945719344 0.0009483593777139662 0.23339040106874281" rpy="0 0 0"/>
+    <mass value="0.280"/>
+    <inertia ixx="0.05036376935238057" iyy="0.054758376883873944" izz="0.004522339980776297" ixy="-3.6472317852012597e-09" iyz="-3.455058752005187e-07" ixz="-2.2233722833344587e-09"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/squash.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+    <material/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/squash.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+</robot>
