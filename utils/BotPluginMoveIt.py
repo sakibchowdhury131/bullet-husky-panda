@@ -7,9 +7,11 @@ import tf
 import numpy as np
 import time
 import pybullet as p
+from sensor_msgs.msg import JointState
+
 
 class BotPluginMoveIt:
-    def __init__(self, environment, move_group = 'Manipulator'):
+    def __init__(self, environment, move_group = 'arm'):
         self.env = environment
         moveit_commander.roscpp_initialize(sys.argv)
         rospy.init_node("bot_node_moveit", anonymous=True)
@@ -21,17 +23,22 @@ class BotPluginMoveIt:
 
 
 
-    def plan_motion(self, x, y, z, roll, pitch, yaw):
+    def plan_motion(self, x, y, z, roll = 0, pitch = 0, yaw = np.pi/2, ignore_pose_control = False):
         self.pose_target.position.x = x
         self.pose_target.position.y = y
         self.pose_target.position.z = z
 
-        quaternion = tf.transformations.quaternion_from_euler(roll, pitch, yaw)
-        # self.pose_target.orientation.x = quaternion[0]
-        # self.pose_target.orientation.y = quaternion[1]
-        # self.pose_target.orientation.z = quaternion[2]
-        # self.pose_target.orientation.w = quaternion[3]
-        self.pose_target.orientation.w = quaternion[3]
+        if ignore_pose_control:
+            self.pose_target.orientation.w = -1
+        else:
+            
+            quaternion = tf.transformations.quaternion_from_euler(roll, pitch, yaw)
+            self.pose_target.orientation.x = quaternion[0]
+            self.pose_target.orientation.y = quaternion[1]
+            self.pose_target.orientation.z = quaternion[2]
+            
+            self.pose_target.orientation.w = quaternion[3]
+        # 
         
         
         self.group.set_pose_target(self.pose_target)
@@ -40,6 +47,7 @@ class BotPluginMoveIt:
 
     def set_starting_state(self, state):
         self.group.set_start_state(state)
+    
 
 
     def execute_plan(self):
@@ -52,13 +60,6 @@ class BotPluginMoveIt:
                                         targetPosition=angle,
                                        )
                 p.stepSimulation()
-                # link_state = p.getLinkState(self.env._robotic_arm, 6, computeLinkVelocity = True)
-                #linear_velocity = link_state[6]
-                #angular_velocity = link_state[7]
-                #current_time = time.time()
-                #with open('vel_data.csv', 'a') as f:
-                #    f.write(f'{linear_velocity[0]},{linear_velocity[1]},{linear_velocity[2]},{angular_velocity[0]},{angular_velocity[1]},{angular_velocity[2]},{current_time}\n')
-
-                time.sleep(1/240.0)
+                time.sleep(self.env.time_step)
             
         # self.group.go(wait = True)
