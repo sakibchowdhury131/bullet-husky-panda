@@ -238,14 +238,14 @@
     <visual>
       <origin xyz="0.108837 -0.718333 -0.820946" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://meshes/visual/racquet_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://meshes/visual/paddle_2_v11.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
       <origin xyz="0.108837 -0.718333 -0.820946" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://meshes/visual/racquet_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://meshes/visual/paddle_2_v11.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -259,14 +259,14 @@
     <visual>
       <origin xyz="0.108345 -0.618421 -0.452131" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://meshes/visual/end_effector_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://meshes/visual/end_effector1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
       <origin xyz="0.108345 -0.618421 -0.452131" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://meshes/visual/end_effector_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://meshes/visual/end_effector1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
