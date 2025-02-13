@@ -4,7 +4,6 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <robot name="panda" xmlns:xacro="http://www.ros.org/wiki/xacro">
-
   <link name="panda_link0">
   	<inertial>
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
@@ -230,6 +229,36 @@
     <axis xyz="0 0 0"/>
   </joint>
 
-  
+
+
+  <link name="paddle_2_v11">
+    <inertial>
+      <origin xyz="1.536717935846088e-05 -0.04098183364350794 -0.15141084630928492" rpy="0 0 0"/>
+      <mass value="0.41109102084948795"/>
+      <inertia ixx="0.001359406044357525" iyy="0.001729813346568243" izz="0.0005917335521479494" ixy="8.25063059278347e-05" iyz="-0.00033229452756661226" ixz="-2.269500528657986e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.108837 -0.718071 -0.819981" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/collision/paddle_2_v11.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+      <material/>
+    </visual>
+    <collision>
+      <origin xyz="0.108837 -0.718071 -0.819981" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/collision/paddle_2_v11.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="panda_bat_mount" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="3.4416 0 0"/>
+    <parent link="panda_link8"/>
+    <child link="paddle_2_v11"/>
+  </joint>
+
   
 </robot>
