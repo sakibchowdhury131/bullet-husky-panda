@@ -260,5 +260,33 @@
     <child link="paddle_2_v11"/>
   </joint>
 
+  <link name="end_eff1">
+    <inertial>
+      <origin xyz="0.00017706290709425254 0.000950405984308178 -0.0002568516892724748" rpy="0 0 0"/>
+      <mass value="0.003088967880428063"/>
+      <inertia ixx="2.826893721902951e-07" iyy="5.197459807051996e-07" izz="2.9215080272581954e-07" ixy="4.5764033500370234e-08" iyz="-6.646750296012728e-08" ixz="-1.238603561983789e-08"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.107731 -0.676972 -0.644582" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/collision/end_eff1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+      <material/>
+    </visual>
+    <collision>
+      <origin xyz="0.107731 -0.676972 -0.644582" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/collision/end_eff1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="Rigid_27" type="fixed">
+    <origin xyz="0.001106 -0.041099 -0.175399" rpy="0 0 0"/>
+    <parent link="paddle_2_v11"/>
+    <child link="end_eff1"/>
+  </joint>
+
   
 </robot>
