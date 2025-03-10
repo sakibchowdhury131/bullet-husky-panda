@@ -11,7 +11,7 @@ from sensor_msgs.msg import JointState
 
 
 class BotPluginMoveIt:
-    def __init__(self, environment, move_group = 'arm'):
+    def __init__(self, environment, move_group = 'arm', planner_id = 'RRTConnectConfigDefault', max_planning_time = 1.0):
         self.env = environment
         moveit_commander.roscpp_initialize(sys.argv)
         rospy.init_node("bot_node_moveit", anonymous=True)
@@ -19,7 +19,12 @@ class BotPluginMoveIt:
         self.scene = moveit_commander.PlanningSceneInterface()
         self.group = moveit_commander.MoveGroupCommander(move_group)
         # display_trajectory_publisher = rospy.Publisher("/move_group/display_planned_path", moveit_msgs.msg.DisplayTrajectory, queue_size=10)
+        self.group.set_planner_id(planner_id)
+        self.group.set_planning_time(max_planning_time)
         self.pose_target = geometry_msgs.msg.Pose()
+        self.success = False
+        self.plan = None
+        
 
 
 
@@ -29,7 +34,7 @@ class BotPluginMoveIt:
         self.pose_target.position.z = z
 
         if ignore_pose_control:
-            self.pose_target.orientation.w = -1
+            self.pose_target.orientation.w = 1
         else:
             
             quaternion = tf.transformations.quaternion_from_euler(roll, pitch, yaw)
@@ -42,7 +47,7 @@ class BotPluginMoveIt:
         
         
         self.group.set_pose_target(self.pose_target)
-        self.plan = self.group.plan()
+        self.success, self.plan, _, _ = self.group.plan()
 
 
     def set_starting_state(self, state):
@@ -51,7 +56,7 @@ class BotPluginMoveIt:
 
 
     def execute_plan(self):
-        for step in self.plan[1].joint_trajectory.points:
+        for step in self.plan.joint_trajectory.points:
             joint_angles = step.positions
             for i, angle in enumerate(joint_angles):
                 p.setJointMotorControl2(bodyIndex=self.env.panda_id,

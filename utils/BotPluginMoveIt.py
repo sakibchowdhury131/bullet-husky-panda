@@ -34,7 +34,7 @@ class BotPluginMoveIt:
         self.pose_target.position.z = z
 
         if ignore_pose_control:
-            self.pose_target.orientation.w = -1
+            self.pose_target.orientation.w = 1
         else:
             
             quaternion = tf.transformations.quaternion_from_euler(roll, pitch, yaw)
