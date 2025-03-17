@@ -14,8 +14,8 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   pinMode(CONTROL_PIN, OUTPUT);
+  digitalWrite(CONTROL_PIN, HIGH);
   pinMode(FEEDBACK_PIN, INPUT_PULLUP);
-
 }
 
 void loop() {
@@ -33,15 +33,16 @@ void loop() {
           stopRelay();
         }
       }
-
-
-
 }
+
+
+
 void startRelay(){
-  Serial.println("Starting Relay");
+  // Serial.write("S");
   digitalWrite(CONTROL_PIN, LOW);
   while (true){
     if (digitalRead(FEEDBACK_PIN)){
+      delay(100);
       break;
     }
   }
@@ -52,7 +53,7 @@ bool throwBall() // returns true when the buttonpress is detected.
   startRelay();
   while(true){
     if (!digitalRead(FEEDBACK_PIN)){
-      Serial.println("Button Pressed");
+      // Serial.write("B");
       break;
     }
   }
@@ -61,7 +62,7 @@ bool throwBall() // returns true when the buttonpress is detected.
 
 void stopRelay(){
   digitalWrite(CONTROL_PIN, HIGH);
-  Serial.println("Stopping Relay");
+  Serial.write("D");
   
 }
 
