@@ -12,10 +12,12 @@ void runSequence();
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
+  digitalWrite(CONTROL_PIN, HIGH);
+  digitalWrite(FEEDBACK_PIN, LOW);
   pinMode(CONTROL_PIN, OUTPUT);
   digitalWrite(CONTROL_PIN, HIGH);
   pinMode(FEEDBACK_PIN, INPUT_PULLUP);
+  Serial.begin(9600);
 }
 
 void loop() {

@@ -30,7 +30,13 @@ config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 pipeline.start(config)
 
 # Capture a frame
-frames = pipeline.wait_for_frames()
+counter = 0
+while True:
+    frames = pipeline.wait_for_frames()
+
+    counter+=1
+    if counter == 20:
+        break
 color_frame = frames.get_color_frame()
 captured_image = np.asanyarray(color_frame.get_data())
 pipeline.stop()
